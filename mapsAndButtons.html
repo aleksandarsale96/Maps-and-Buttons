@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maps and Buttons</title>
+    <link rel="stylesheet" href="css/leaflet.css">
+    <style>
+        #map {
+            height: 80vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div>
+        <button id="zoom">Set zoom to 5</button>
+        <button id="zoom-in">Zoom in</button>
+        <button id="zoom-out">Zoom out</button>
+        <button id="pan">Show Belgrade</button>
+        <button id="set-view">Show Tokyo with zoom level 13</button>
+        <button id="fly">Fly to Athens</button>
+    </div>
+    <script src="js/leaflet.js"></script>
+    <script>
+        // Prikazivanje geografske sirine i duzine gde god da se klikne:
+
+        var myMap = L.map('map', {
+            center: [37.974, 23.72],
+            zoom: 13
+        });
+        
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(myMap);
+        
+        let buttons = document.getElementsByTagName("button");
+        
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener("click", function () {
+        
+                let id = this.id;
+        
+                switch (id) {
+        case "zoom":
+            myMap.setZoom(5);
+            break;
+        case "zoom-in":
+            myMap.zoomIn(1);
+            break;
+        case "zoom-out":
+            myMap.zoomOut(1);
+            break;
+        case "pan":
+            myMap.panTo([44.82556, 20.45112]);
+            break;
+        case "set-view":
+            myMap.setView([35.69033, 139.77343], 13);
+            break;
+        case "fly":
+            myMap.flyTo([37.95232, 23.72346], 15);
+            break;
+        
+                }
+        
+            });
+        }
+    </script>
+</body>
+</html>
